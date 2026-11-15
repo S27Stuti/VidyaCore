@@ -10,6 +10,9 @@
     "client": "npm --prefix client run dev",
     "seed": "npm --prefix server run seed"
   },
+  "engines": {
+    "node": ">=20.10.0"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
