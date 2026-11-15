@@ -11,7 +11,7 @@
     "seed": "npm --prefix server run seed"
   },
   "engines": {
-    "node": ">=20.10.0"
+    "node": ">=20.19.0"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
