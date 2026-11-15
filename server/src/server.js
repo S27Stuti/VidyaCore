@@ -63,6 +63,18 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Serve static client assets in production if client/dist exists
+const clientDistPath = path.join(__dirname, '../../client/dist');
+if (fs.existsSync(clientDistPath)) {
+  app.use(express.static(clientDistPath));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) {
+      return next();
+    }
+    res.sendFile(path.join(clientDistPath, 'index.html'));
+  });
+}
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('[Server Error]', err.stack);
@@ -75,8 +87,8 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 
 if (require.main === module) {
-  server.listen(PORT, () => {
-    console.log(`[VidyaCore Server] Running on http://localhost:${PORT}`);
+  server.listen(PORT, '0.0.0.0', () => {
+    console.log(`[VidyaCore Server] Running on port ${PORT}`);
   });
 }
 
